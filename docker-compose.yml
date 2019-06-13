@@ -1,0 +1,18 @@
+version: '3.2'
+
+services:
+  fluentbit:
+    # user: "1001:1001"
+    image: fluent/fluent-bit:latest
+    entrypoint: "/fluent-bit/bin/fluent-bit"
+    command: "-c /tmp/fluent-bit.conf"
+    volumes:
+      - "./flb.conf:/tmp/fluent-bit.conf"
+    ports:
+      - "24224:24224"
+  fluentd:
+    # user: "1001:1001"
+    image: fluent/fluentd
+    volumes:
+      - "./fl.conf:/fluentd/etc/fluent.conf"
+      - "./logs:/fluentd/log"
